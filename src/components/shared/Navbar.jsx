@@ -1,10 +1,9 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import logo from "/public/logo.svg";
-import { useContext, useState } from "react";
+import { Link, NavLink } from "react-router-dom";
+import logo from "/logo.svg";
+import { useState } from "react";
 
 const Navbar = () => {
   const [theme, setTheme] = useState("light");
-  const navigate = useNavigate();
 
   const user = true;
   const handleThemeChange = (e) => {
@@ -15,10 +14,6 @@ const Navbar = () => {
       document.querySelector("html").setAttribute("data-theme", "light");
       setTheme("light");
     }
-  };
-
-  const handleLogout = () => {
-    navigate("/");
   };
 
   const navLinks = (
@@ -51,7 +46,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="bg-base-100 py-2 font-poppins backdrop-blur-md  fixed w-full ">
+    <div className="bg-base-100 py-2 font-poppins backdrop-blur-md fixed w-full ">
       <div className="mx-auto lg:container ">
         <div className="navbar font-poppins">
           <div className="navbar-start ">

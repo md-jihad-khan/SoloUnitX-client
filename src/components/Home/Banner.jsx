@@ -37,12 +37,12 @@ const Banner = () => {
                   Welcome to Join Hands, where passion meets purpose! Explore
                   diverse volunteer opportunities that align with your interests
                   and skills, and make a meaningful difference in communities
-                  around the globe. Whether you're passionate about
-                  environmental conservation, empowering youth, or supporting
-                  marginalized groups, there's a volunteering opportunity
-                  waiting for you. Join our community of changemakers today and
-                  be a part of something bigger than yourself. Together, let's
-                  create a brighter future for all.
+                  around the globe. Whether passionate about environmental
+                  conservation, empowering youth, or supporting marginalized
+                  groups, a volunteering opportunity waiting for you. Join our
+                  community of changemakers today and be a part of something
+                  bigger than yourself. Together, create a brighter future for
+                  all.
                 </p>
                 <button className="btn cursor-pointer text-white font-poppins font-bold bg-yellow-500 border-none">
                   Explore More
@@ -69,12 +69,12 @@ const Banner = () => {
                   Welcome to Join Hands, where passion meets purpose! Explore
                   diverse volunteer opportunities that align with your interests
                   and skills, and make a meaningful difference in communities
-                  around the globe. Whether you're passionate about
-                  environmental conservation, empowering youth, or supporting
-                  marginalized groups, there's a volunteering opportunity
-                  waiting for you. Join our community of changemakers today and
-                  be a part of something bigger than yourself. Together, let's
-                  create a brighter future for all.
+                  around the globe. Whether passionate about environmental
+                  conservation, empowering youth, or supporting marginalized
+                  groups, a volunteering opportunity waiting for you. Join our
+                  community of changemakers today and be a part of something
+                  bigger than yourself. Together, create a brighter future for
+                  all.
                 </p>
                 <button className="btn cursor-pointer text-white font-poppins font-bold bg-yellow-500 border-none">
                   Explore More
@@ -102,10 +102,10 @@ const Banner = () => {
                   experience with [Your Company Name]. We pride ourselves on
                   delivering exceptional service and innovative solutions that
                   exceed expectations. environmental conservation, empowering
-                  youth, or supporting marginalized groups, there's a
-                  volunteering opportunity waiting for you. Join our community
-                  of changemakers today and be a part of something bigger than
-                  yourself. Together, let's create a brighter future for all.
+                  youth, or supporting marginalized groups, a volunteering
+                  opportunity waiting for you. Join our community of
+                  changemakers today and be a part of something bigger than
+                  yourself. Together, create a brighter future for all.
                 </p>
                 <button className="btn cursor-pointer text-white font-poppins font-bold bg-yellow-500 border-none">
                   Explore More
