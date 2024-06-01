@@ -43,7 +43,7 @@ const ApartmentLocation = () => {
       />
 
       <div className="flex flex-col gap-7  max-w-4xl mx-auto mt-5 md:flex-row items-center justify-between space-y-4 md:space-y-0">
-        <div className="h-96  my-auto w-full md:w-1/2">
+        <div className="h-96 relative z-0  my-auto w-full md:w-1/2">
           <MapContainer
             center={position}
             zoom={13}
