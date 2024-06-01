@@ -9,7 +9,7 @@ const flipAnimation = {
   transition: {
     duration: 3, // Animation duration in seconds
     repeat: Infinity, // Repeat continuously
-    ease: "easeInOut", // Smoother transition
+    ease: "linear", // Smoother transition
     flip: Infinity, // Enable flip on transition completion (infinite)
   },
 };

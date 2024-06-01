@@ -2,8 +2,18 @@ import coupon from "../../assets/cupon.png";
 import Heading from "../shared/Heading";
 import CouponCard from "./CouponCard";
 import { motion } from "framer-motion";
+import couponCard from "../../assets/cuponcard.png";
 
 const springUpDownAnimation = {
+  y: [15, -15, 15], // Vertical movement
+  rotate: [0, 10, -10, 0], // Rotation sequence
+  transition: {
+    duration: 2, // Adjust for animation speed (in seconds)
+    ease: "easeInOut", // Smoother motion
+    repeat: Infinity, // Continuously repeat the animation
+  },
+};
+const springUpDownAnimation2 = {
   y: [20, -20, 20], // Move the box up 20px, down 20px, and back to 0
   transition: {
     duration: 2, // Adjust for animation speed (in seconds)
@@ -33,11 +43,18 @@ const Coupon = () => {
         />
 
         <motion.img
-          className="w-96 mx-auto " // Adjust width and height as needed
-          src={coupon}
+          className="w-16 mt-5 mx-auto " // Adjust width and height as needed
+          src={couponCard}
           alt="Gift Box"
           style={{ position: "relative" }} // Set relative positioning for vertical movement
           animate={springUpDownAnimation}
+        />
+        <motion.img
+          className="w-80 mx-auto " // Adjust width and height as needed
+          src={coupon}
+          alt="Gift Box"
+          style={{ position: "relative" }} // Set relative positioning for vertical movement
+          animate={springUpDownAnimation2}
         />
       </div>
     </section>

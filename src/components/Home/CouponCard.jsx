@@ -4,7 +4,7 @@ const CouponCard = ({ coupons }) => {
       key={index}
       className="container  bg-gradient-to-r from-yellow-500 to-yellow-400 text-white p-8 py-6 rounded-lg shadow-lg mx-auto"
     >
-      <div className="text-lg mb-4">
+      <div className="text-lg mb-1">
         Get <span className="text-black font-bold">{coupon.discount}</span> your
         next purchase!
       </div>
