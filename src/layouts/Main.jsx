@@ -1,14 +1,14 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, ScrollRestoration } from "react-router-dom";
 import Navbar from "../components/shared/Navbar";
 
 const Main = () => {
   return (
     <>
-      <Navbar />
-
-      <div className="h-[150vh]">
-        <Outlet />
+      <ScrollRestoration />
+      <div className="h-28 relative z-20 w-full">
+        <Navbar></Navbar>
       </div>
+      <Outlet />
     </>
   );
 };
