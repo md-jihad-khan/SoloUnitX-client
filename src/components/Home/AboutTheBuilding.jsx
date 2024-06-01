@@ -16,11 +16,11 @@ const flipAnimation = {
 
 const AboutTheBuilding = () => {
   return (
-    <section className="mt-24">
+    <section className="mt-10 md:mt-24 ">
       <Heading title={"About The Building"} desc={""} />
 
       <div className="flex flex-col md:flex-row justify-between items-center gap-8 ">
-        <div className="flex flex-col text-center items-center  mx-auto w-1/2">
+        <div className="flex flex-col text-center items-center  mx-auto  md:w-1/2">
           <motion.img
             className="w-20"
             src={mark}
@@ -30,11 +30,11 @@ const AboutTheBuilding = () => {
           <img className="w-96" src={apartment} alt="" />
         </div>
 
-        <div className="w-1/2">
+        <div className="md:w-1/2 px-3">
           <div className=" w-full  space-y-12">
             <article className="space-y-8 ">
               <div className="space-y-6">
-                <h1 className="text-2xl font-bold md:tracking-tight md:text-4xl ">
+                <h1 className="text-3xl font-bold md:tracking-tight md:text-4xl ">
                   Welcome to{" "}
                   <span className="text-yellow-500">Solo Unit {""}</span> X
                 </h1>
