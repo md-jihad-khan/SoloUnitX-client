@@ -22,12 +22,12 @@ const AboutTheBuilding = () => {
       <div className="flex flex-col md:flex-row justify-between items-center gap-8 ">
         <div className="flex flex-col text-center items-center  mx-auto  md:w-1/2">
           <motion.img
-            className="w-20"
+            className="w-20 "
             src={mark}
             alt=""
             animate={flipAnimation}
           />
-          <img className="w-96" src={apartment} alt="" />
+          <img className="w-96  " src={apartment} alt="" />
         </div>
 
         <div className="md:w-1/2 px-3">

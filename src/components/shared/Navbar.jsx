@@ -5,7 +5,7 @@ import { useState } from "react";
 const Navbar = () => {
   const [theme, setTheme] = useState("light");
 
-  const user = true;
+  const user = false;
   const handleThemeChange = (e) => {
     if (e.target.checked) {
       document.querySelector("html").setAttribute("data-theme", "forest");
