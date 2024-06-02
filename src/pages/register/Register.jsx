@@ -1,18 +1,13 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useContext, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import {
-  Link,
-  ScrollRestoration,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { motion } from "framer-motion";
 import login from "../../assets/login.png";
 import shadow from "../../assets/login shadow.png";
 import { AuthContext } from "../../providers/AuthProvider";
-import axios from "axios";
+
 import { imageUpload } from "../../components/utils";
 import { TbFidgetSpinner } from "react-icons/tb";
 
@@ -27,7 +22,7 @@ const locationAnimation = {
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const location = useLocation();
+  // const location = useLocation();
   const navigate = useNavigate();
   const [imagePreview, setImagePreview] = useState();
   const [imageText, setImageText] = useState("Upload your Image");
@@ -89,13 +84,14 @@ const Register = () => {
     } else {
       try {
         const result = await createUser(email, password);
-
+        console.log(result);
         const photoUrl = await imageUpload(image);
 
         await updateUserProfile(name, photoUrl);
 
         Swal.fire({
           icon: "success",
+          iconColor: "#F4C210",
           title: "Registration Successful",
           showConfirmButton: false,
           timer: 1500,

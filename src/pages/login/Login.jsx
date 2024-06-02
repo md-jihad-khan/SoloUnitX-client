@@ -1,12 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useContext, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import {
-  Link,
-  ScrollRestoration,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { Link, ScrollRestoration, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import login from "../../assets/login.png";
 import shadow from "../../assets/login shadow.png";
@@ -23,16 +18,11 @@ const locationAnimation = {
     repeat: Infinity, // Continuously repeat the animation
   },
 };
-// import { AuthContext } from "../providers/AuthProvider";
-// import Swal from "sweetalert2";
-// import Lottie from "lottie-react";
-// import loginAnimation from "../assets/login.json";
-// import axios from "axios";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const location = useLocation();
+  // const location = useLocation();
   const navigate = useNavigate();
 
   const { signIn, googleLogin } = useContext(AuthContext);
@@ -52,6 +42,7 @@ const Login = () => {
           icon: "success",
           title: "Login Successful",
           showConfirmButton: false,
+          iconColor: "#F4C210",
           timer: 1500,
         });
         navigate("/");
@@ -80,6 +71,7 @@ const Login = () => {
         );
         Swal.fire({
           icon: "success",
+          iconColor: "#F4C210",
           title: "Google Login Successful",
           showConfirmButton: false,
           timer: 1500,
@@ -87,6 +79,7 @@ const Login = () => {
         navigate("/");
       })
       .catch((error) => {
+        console.log(error);
         Swal.fire({
           icon: "error",
           title: "Oops...",

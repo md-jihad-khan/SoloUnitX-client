@@ -38,9 +38,9 @@ const Navbar = () => {
               ? "text-yellow-500 border-b-2 rounded-none border-yellow-500 font-bold"
               : "font-normal  "
           }
-          to={"/needVolunteer"}
+          to={"/apartments"}
         >
-          Apartment
+          Apartments
         </NavLink>
       </li>
     </>
@@ -111,7 +111,7 @@ const Navbar = () => {
                         tabIndex={0}
                         className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
                       >
-                        <li>
+                        <li className="text-center font-bold text-yellow-500">
                           {user?.displayName}
                           <hr />
                         </li>

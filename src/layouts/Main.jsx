@@ -6,7 +6,7 @@ const Main = () => {
   return (
     <>
       <ScrollRestoration />
-      <div className="h-16 relative z-50 w-full">
+      <div className="h-20 relative z-50 w-full">
         <Navbar></Navbar>
       </div>
       <Outlet />
