@@ -45,13 +45,9 @@ const Login = () => {
     const password = e.target.password.value;
     await signIn(email, password)
       .then((result) => {
-        axios.post(
-          `${import.meta.env.VITE_SERVER}/jwt`,
-          {
-            email: result?.user?.email,
-          },
-          { withCredentials: true }
-        );
+        axios.post(`${import.meta.env.VITE_SERVER}/jwt`, {
+          email: result?.user?.email,
+        });
         Swal.fire({
           icon: "success",
           title: "Login Successful",
