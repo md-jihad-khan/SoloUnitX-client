@@ -6,11 +6,6 @@ import { motion } from "framer-motion";
 import earth from "../../assets/earth.png";
 import location from "../../assets/location.png";
 
-const slowRotateAnimation = {
-  rotate: "360deg", // Full rotation
-  transition: { duration: 2, ease: "linear", loop: 3 }, // Adjust as needed
-};
-
 const locationAnimation = {
   y: [15, -15, 15], // Vertical movement
   rotate: [0, 10, -10, 0], // Rotation sequence

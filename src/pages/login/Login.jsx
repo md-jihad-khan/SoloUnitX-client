@@ -10,6 +10,10 @@ import {
 import { motion } from "framer-motion";
 import login from "../../assets/login.png";
 import shadow from "../../assets/login shadow.png";
+import { AuthContext } from "../../providers/AuthProvider";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { TbFidgetSpinner } from "react-icons/tb";
 
 const locationAnimation = {
   y: [15, -15, 15], // Vertical movement
@@ -27,69 +31,72 @@ const locationAnimation = {
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
-  //   const { signIn, googleLogin, reload, setReload } = useContext(AuthContext);
+  const { signIn, googleLogin } = useContext(AuthContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const email = e.target.email.value;
     const password = e.target.password.value;
-    // await signIn(email, password)
-    //   .then((result) => {
-    //     axios.post(
-    //       `${import.meta.env.VITE_SERVER}/jwt`,
-    //       {
-    //         email: result?.user?.email,
-    //       },
-    //       { withCredentials: true }
-    //     );
-    //     Swal.fire({
-    //       icon: "success",
-    //       title: "Login Successful",
-    //       showConfirmButton: false,
-    //       timer: 1500,
-    //     });
-    //     navigate("/");
-    //     return setReload(!reload);
-    //   })
-    //   .catch((error) => {
-    //     if (error.message) {
-    //       Swal.fire({
-    //         icon: "error",
-    //         title: "Oops...",
-    //         text: "Invalid Email or Password !",
-    //       });
-    //     }
-    //   });
+    await signIn(email, password)
+      .then((result) => {
+        axios.post(
+          `${import.meta.env.VITE_SERVER}/jwt`,
+          {
+            email: result?.user?.email,
+          },
+          { withCredentials: true }
+        );
+        Swal.fire({
+          icon: "success",
+          title: "Login Successful",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate("/");
+        return setLoading(false);
+      })
+      .catch((error) => {
+        setLoading(false);
+        if (error.message) {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Invalid Email or Password !",
+          });
+        }
+      });
   };
   const handleGoogleLogin = () => {
-    // googleLogin()
-    //   .then((result) => {
-    //     axios.post(
-    //       `${import.meta.env.VITE_SERVER}/jwt`,
-    //       {
-    //         email: result?.user?.email,
-    //       },
-    //       { withCredentials: true }
-    //     );
-    //     Swal.fire({
-    //       icon: "success",
-    //       title: "Google Login Successful",
-    //       showConfirmButton: false,
-    //       timer: 1500,
-    //     });
-    //     navigate("/");
-    //   })
-    //   .catch((error) => {
-    //     Swal.fire({
-    //       icon: "error",
-    //       title: "Oops...",
-    //       text: "Google Login Failed",
-    //     });
-    //   });
+    googleLogin()
+      .then((result) => {
+        axios.post(
+          `${import.meta.env.VITE_SERVER}/jwt`,
+          {
+            email: result?.user?.email,
+          },
+          { withCredentials: true }
+        );
+        Swal.fire({
+          icon: "success",
+          title: "Google Login Successful",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate("/");
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Google Login Failed",
+        });
+      });
   };
 
   return (
@@ -117,8 +124,6 @@ const Login = () => {
         </div>
         <div className="md:flex font-poppins">
           <div className="md:w-1/2 relative">
-            {/* <Lottie animationData={loginAnimation} loop={true} /> */}
-
             <motion.img
               className="z-10 relative "
               src={login}
@@ -159,8 +164,16 @@ const Login = () => {
                   />
                 </div>
               </div>
-              <button className="block w-full p-3 text-center rounded-sm bg-yellow-500 text-white">
-                Login
+              <button
+                disabled={loading}
+                className="block  w-full p-3 text-center rounded-sm bg-yellow-500 text-white"
+                type="submit"
+              >
+                {loading ? (
+                  <TbFidgetSpinner className="text-xl text-white animate-spin m-auto" />
+                ) : (
+                  "Login"
+                )}
               </button>
             </form>
             <div className="flex items-center w-full my-4">

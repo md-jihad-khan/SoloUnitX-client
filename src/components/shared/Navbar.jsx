@@ -1,11 +1,12 @@
 import { Link, NavLink } from "react-router-dom";
 import logo from "/logo.svg";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const Navbar = () => {
   const [theme, setTheme] = useState("light");
+  const { user, logOut } = useContext(AuthContext);
 
-  const user = false;
   const handleThemeChange = (e) => {
     if (e.target.checked) {
       document.querySelector("html").setAttribute("data-theme", "forest");
@@ -46,7 +47,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="bg-base-100 py-2 font-poppins backdrop-blur-md fixed w-full ">
+    <div className="bg-base-100   font-poppins backdrop-blur-md fixed w-full ">
       <div className="mx-auto lg:container ">
         <div className="navbar font-poppins">
           <div className="navbar-start ">
@@ -111,14 +112,16 @@ const Navbar = () => {
                         className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
                       >
                         <li>
-                          Md Jihad Hossain
+                          {user?.displayName}
                           <hr />
                         </li>
                         <li>
                           <Link to={"/addVolunteerPost"}>Dashboard</Link>
                         </li>
                         <li>
-                          <Link>Logout</Link>
+                          <button onClick={() => logOut()} className="w-full">
+                            Logout
+                          </button>
                         </li>
                       </ul>
                     </div>

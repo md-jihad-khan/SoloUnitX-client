@@ -11,6 +11,10 @@ import Swal from "sweetalert2";
 import { motion } from "framer-motion";
 import login from "../../assets/login.png";
 import shadow from "../../assets/login shadow.png";
+import { AuthContext } from "../../providers/AuthProvider";
+import axios from "axios";
+import { imageUpload } from "../../components/utils";
+import { TbFidgetSpinner } from "react-icons/tb";
 
 const locationAnimation = {
   y: [15, -15, 15], // Vertical movement
@@ -25,83 +29,101 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const [imagePreview, setImagePreview] = useState();
+  const [imageText, setImageText] = useState("Upload your Image");
+  const [loading, setLoading] = useState(false);
 
-  //   const { createUser, updateUserProfile, reload, setReload } =
-  //     useContext(AuthContext);
+  const { createUser, updateUserProfile } = useContext(AuthContext);
 
+  const handleImage = (image) => {
+    setImagePreview(URL.createObjectURL(image));
+    setImageText(image.name);
+  };
+
+  // axios.post(
+  //   `${import.meta.env.VITE_SERVER}/jwt`,
+  //   {
+  //     email: result?.user?.email,
+  //   },
+  //   { withCredentials: true }
+  // );
   const handleRegister = async (e) => {
-    // e.preventDefault();
-    // const name = e.target.username.value;
-    // const email = e.target.email.value;
-    // const photoUrl = e.target.photourl.value;
-    // const password = e.target.password.value;
-    // const uppercaseRegex = /[A-Z]/;
-    // const lowercaseRegex = /[a-z]/;
-    // if (password.length < 6) {
-    //   return Swal.fire({
-    //     position: "top-end",
-    //     icon: "error",
-    //     title: "Password must be at least 6 characters long",
-    //     showConfirmButton: false,
-    //     timer: 1500,
-    //   });
-    // } else if (!uppercaseRegex.test(password)) {
-    //   return Swal.fire({
-    //     position: "top-end",
-    //     icon: "error",
-    //     title: "Password must contain at least one uppercase letter",
-    //     showConfirmButton: false,
-    //     timer: 1500,
-    //   });
-    // } else if (!lowercaseRegex.test(password)) {
-    //   return Swal.fire({
-    //     position: "top-end",
-    //     icon: "error",
-    //     title: "Password must contain at least one lowercase letter",
-    //     showConfirmButton: false,
-    //     timer: 1500,
-    //   });
-    // } else {
-    //   await createUser(email, password)
-    //     .then((result) => {
-    //       axios.post(
-    //         `${import.meta.env.VITE_SERVER}/jwt`,
-    //         {
-    //           email: result?.user?.email,
-    //         },
-    //         { withCredentials: true }
-    //       );
-    //       updateUserProfile(name, photoUrl).then(() => {
-    //         Swal.fire({
-    //           icon: "success",
-    //           title: "Registration Successful",
-    //           showConfirmButton: false,
-    //           timer: 1500,
-    //         });
-    //         setReload(!reload);
-    //         navigate("/");
-    //       });
-    //     })
-    //     .catch((error) => {
-    //       if (error.code == "auth/email-already-in-use") {
-    //         Swal.fire({
-    //           position: "top-end",
-    //           icon: "error",
-    //           title: "Email is already in use",
-    //           showConfirmButton: false,
-    //           timer: 1500,
-    //         });
-    //       } else {
-    //         Swal.fire({
-    //           position: "top-end",
-    //           icon: "error",
-    //           title: `${error.message}`,
-    //           showConfirmButton: false,
-    //           timer: 1500,
-    //         });
-    //       }
-    //     });
-    // }
+    e.preventDefault();
+    setLoading(true);
+
+    const name = e.target.username.value;
+    const email = e.target.email.value;
+    const image = e.target.image.files[0];
+    const password = e.target.password.value;
+
+    const uppercaseRegex = /[A-Z]/;
+    const lowercaseRegex = /[a-z]/;
+
+    if (password.length < 6) {
+      setLoading(false);
+      return Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Password must be at least 6 characters long",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } else if (!uppercaseRegex.test(password)) {
+      setLoading(false);
+      return Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Password must contain at least one uppercase letter",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } else if (!lowercaseRegex.test(password)) {
+      setLoading(false);
+      return Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Password must contain at least one lowercase letter",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } else {
+      try {
+        const result = await createUser(email, password);
+
+        const photoUrl = await imageUpload(image);
+
+        await updateUserProfile(name, photoUrl);
+
+        Swal.fire({
+          icon: "success",
+          title: "Registration Successful",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
+        setLoading(false);
+        navigate("/");
+      } catch (error) {
+        setLoading(false);
+        if (error.code === "auth/email-already-in-use") {
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Email is already in use",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        } else {
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: `${error.message}`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      }
+    }
   };
 
   return (
@@ -160,15 +182,35 @@ const Register = () => {
                   className="w-full px-4 py-3 rounded-md input border-yellow-500 border"
                 />
               </div>
-              <div className="space-y-1 text-sm">
-                <label className="block ">Photo URL</label>
-                <input
-                  required
-                  type="text"
-                  name="photourl"
-                  placeholder="Photo URL"
-                  className="w-full px-4 py-3 rounded-md input border-yellow-500 border"
-                />
+              <div className=" flex text-sm">
+                <div className="file_upload flex-1  py-3 relative border-4 border-dotted border-yellow-300 rounded-lg">
+                  <div className="flex flex-col w-max mx-auto text-center">
+                    <label>
+                      <input
+                        className="text-sm btn cursor-pointer w-36 hidden"
+                        type="file"
+                        onChange={(e) => handleImage(e.target.files[0])}
+                        name="image"
+                        id="image"
+                        accept="image/*"
+                        hidden
+                      />
+                      <div className="bg-yellow-500 text-white  rounded font-semibold cursor-pointer p-1 px-3 hover:bg-yellow-500">
+                        {/* {imageText} */}
+                        {imageText.length > 20
+                          ? imageText.split(".")[0].slice(0, 15) +
+                            "...." +
+                            imageText.split(".")[1]
+                          : imageText}
+                      </div>
+                    </label>
+                  </div>
+                </div>
+                <div className=" object-cover overflow-hidden flex items-center">
+                  {imagePreview && (
+                    <img className="h-16 w-16" src={imagePreview} />
+                  )}
+                </div>
               </div>
               <div className="space-y-1 text-sm">
                 <label htmlFor="password" className="block ">
@@ -191,11 +233,17 @@ const Register = () => {
                   />
                 </div>
               </div>
+
               <button
-                className="block w-full p-3 text-center rounded-sm bg-yellow-500 text-white"
+                disabled={loading}
+                className="block  w-full p-3 text-center rounded-sm bg-yellow-500 text-white"
                 type="submit"
               >
-                Register
+                {loading ? (
+                  <TbFidgetSpinner className="text-xl text-white animate-spin m-auto" />
+                ) : (
+                  "Register"
+                )}
               </button>
             </form>
 
@@ -210,7 +258,6 @@ const Register = () => {
             </p>
           </div>
         </div>
-        <ScrollRestoration />
       </div>
     </>
   );

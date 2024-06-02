@@ -7,7 +7,7 @@ import "swiper/css/effect-fade";
 
 const Banner = () => {
   return (
-    <div className=" h-[70vh]">
+    <div className="mt-8 h-[70vh]">
       <Swiper
         spaceBetween={30}
         effect={"fade"}
