@@ -1,5 +1,10 @@
+import UserProfile from "../../components/Dashboard/user/UserProfile";
+import useRole from "../../hooks/useRole";
+
 const MyProfile = () => {
-  return <div>MyProfile</div>;
+  const [role] = useRole();
+
+  return <div>{role === "user" && <UserProfile />}</div>;
 };
 
 export default MyProfile;

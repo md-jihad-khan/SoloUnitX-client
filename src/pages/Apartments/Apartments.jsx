@@ -1,6 +1,5 @@
 import { useState } from "react";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
-import axios from "axios";
 import Heading from "../../components/shared/Heading";
 import Card from "../../components/Apartment/Card";
 import { useQuery } from "@tanstack/react-query";
@@ -18,22 +17,9 @@ const Apartments = () => {
       );
 
       setTotalPages(response.data.totalPages);
-
       return response.data.apartments;
     },
   });
-
-  //   useEffect(() => {
-  //     const fetchApartments = async () => {
-  //       const response = await axiosPublic.get(
-  //         `/api/apartments?page=${currentPage}`
-  //       );
-  //       setApartments(response.data.apartments);
-  //       setTotalPages(response.data.totalPages);
-  //     };
-
-  //     fetchApartments();
-  //   }, [currentPage, axiosPublic]);
 
   const pages = [...Array(totalPages).keys()].map((element) => element + 1);
 

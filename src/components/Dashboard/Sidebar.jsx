@@ -11,11 +11,12 @@ import { MdOutlineAnnouncement } from "react-icons/md";
 import { AiOutlineBars } from "react-icons/ai";
 
 import MenuItem from "./MenuItem";
+import useRole from "../../hooks/useRole";
 
 const Sidebar = () => {
   const { logOut } = useContext(AuthContext);
   const [isActive, setActive] = useState(false);
-  const role = "admin";
+  const [role] = useRole();
 
   // Sidebar Responsive Handler
   const handleToggle = () => {
@@ -29,7 +30,7 @@ const Sidebar = () => {
         <div>
           <div className="w-full mx-auto">
             <Link className="flex " to="/">
-              <img src="logo.svg" alt="logo" className="h-10" />
+              <img src="/logo.svg" alt="logo" className="h-10" />
               <p className="font-poppins text-xl flex items-center font-bold">
                 <span className="text-yellow-500">Solo Unit</span> X
               </p>

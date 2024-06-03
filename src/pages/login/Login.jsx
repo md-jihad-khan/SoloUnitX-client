@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import login from "../../assets/login.png";
 import shadow from "../../assets/login shadow.png";
 import { AuthContext } from "../../providers/AuthProvider";
-import axios from "axios";
+
 import Swal from "sweetalert2";
 import { TbFidgetSpinner } from "react-icons/tb";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
@@ -62,8 +62,8 @@ const Login = () => {
     googleLogin()
       .then((result) => {
         const userInfo = {
-          name: result?.user?.email,
-          email: result?.user?.displayName,
+          name: result?.user?.displayName,
+          email: result?.user?.email,
           role: "user",
         };
         axiosPublic.post("/users", userInfo).then(() => {

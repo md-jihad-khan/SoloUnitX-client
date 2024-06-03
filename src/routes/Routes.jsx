@@ -5,6 +5,8 @@ import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
 import Apartments from "../pages/Apartments/Apartments";
 import DashboardLayout from "../layouts/DashboardLayout";
+import MyProfile from "../pages/Dashboard/MyProfile";
+import Announcements from "../pages/Dashboard/Announcements";
 
 export const router = createBrowserRouter([
   {
@@ -28,12 +30,12 @@ export const router = createBrowserRouter([
     element: <DashboardLayout />,
     children: [
       {
-        // index: true,
-        // element: (
-        //   <PrivateRoute>
-        //     <Statistics />
-        //   </PrivateRoute>
-        // ),
+        index: true,
+        element: <MyProfile />,
+      },
+      {
+        path: "announcements",
+        element: <Announcements />,
       },
     ],
   },

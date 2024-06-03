@@ -82,8 +82,8 @@ const Register = () => {
         await updateUserProfile(name, photoUrl);
 
         const userInfo = {
-          name: result?.user?.email,
-          email: result?.user?.displayName,
+          name: result?.user?.displayName,
+          email: result?.user?.email,
           role: "user",
         };
         await axiosPublic.post("/users", userInfo).then(() => {
