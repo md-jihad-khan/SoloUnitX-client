@@ -12,7 +12,7 @@ const Card = ({ apartment }) => {
 
   const { mutateAsync } = useMutation({
     mutationFn: async (agreementData) => {
-      const { data } = await axiosSecure.post("/api/agreements", agreementData);
+      const { data } = await axiosSecure.post("/agreements", agreementData);
       return data;
     },
     onSuccess: () => {
@@ -40,8 +40,10 @@ const Card = ({ apartment }) => {
     const agreement = {
       userName: user.displayName,
       userEmail: user.email,
+
       ...apartment,
       status: "pending",
+      agreementRequestDate: new Date().toISOString().slice(0, 10),
     };
 
     Swal.fire({
