@@ -116,7 +116,7 @@ const Navbar = () => {
                           <hr />
                         </li>
                         <li>
-                          <Link to={"/addVolunteerPost"}>Dashboard</Link>
+                          <Link to={"/dashboard"}>Dashboard</Link>
                         </li>
                         <li>
                           <button onClick={() => logOut()} className="w-full">

@@ -4,6 +4,7 @@ import Home from "../pages/Home/Home";
 import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
 import Apartments from "../pages/Apartments/Apartments";
+import DashboardLayout from "../layouts/DashboardLayout";
 
 export const router = createBrowserRouter([
   {
@@ -22,4 +23,18 @@ export const router = createBrowserRouter([
   },
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
+  {
+    path: "/dashboard",
+    element: <DashboardLayout />,
+    children: [
+      {
+        // index: true,
+        // element: (
+        //   <PrivateRoute>
+        //     <Statistics />
+        //   </PrivateRoute>
+        // ),
+      },
+    ],
+  },
 ]);
