@@ -10,6 +10,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 
 import { imageUpload } from "../../components/utils";
 import { TbFidgetSpinner } from "react-icons/tb";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const locationAnimation = {
   y: [15, -15, 15], // Vertical movement
@@ -27,7 +28,7 @@ const Register = () => {
   const [imagePreview, setImagePreview] = useState();
   const [imageText, setImageText] = useState("Upload your Image");
   const [loading, setLoading] = useState(false);
-
+  const axiosPublic = useAxiosPublic();
   const { createUser, updateUserProfile } = useContext(AuthContext);
 
   const handleImage = (image) => {
@@ -35,13 +36,6 @@ const Register = () => {
     setImageText(image.name);
   };
 
-  // axios.post(
-  //   `${import.meta.env.VITE_SERVER}/jwt`,
-  //   {
-  //     email: result?.user?.email,
-  //   },
-  //   { withCredentials: true }
-  // );
   const handleRegister = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -83,22 +77,26 @@ const Register = () => {
       });
     } else {
       try {
-        const result = await createUser(email, password);
-        console.log(result);
         const photoUrl = await imageUpload(image);
-
+        const result = await createUser(email, password);
         await updateUserProfile(name, photoUrl);
 
-        Swal.fire({
-          icon: "success",
-          iconColor: "#F4C210",
-          title: "Registration Successful",
-          showConfirmButton: false,
-          timer: 1500,
+        const userInfo = {
+          name: result?.user?.email,
+          email: result?.user?.displayName,
+          role: "user",
+        };
+        await axiosPublic.post("/users", userInfo).then(() => {
+          Swal.fire({
+            icon: "success",
+            iconColor: "#F4C210",
+            title: "Registration Successful",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          setLoading(false);
+          navigate("/");
         });
-
-        setLoading(false);
-        navigate("/");
       } catch (error) {
         setLoading(false);
         if (error.code === "auth/email-already-in-use") {
@@ -110,6 +108,7 @@ const Register = () => {
             timer: 1500,
           });
         } else {
+          console.log(error);
           Swal.fire({
             position: "top-end",
             icon: "error",
@@ -125,7 +124,7 @@ const Register = () => {
   return (
     <>
       <div className="md:w-10/12 mx-auto mb-10 mt-5">
-        <div className="text-center " data-aos="fade-down">
+        <div className="text-center ">
           <h1 className="text-2xl md:text-4xl font-bold mb-1">Register</h1>
           <div className="inline-flex items-center justify-center w-full">
             <hr className="w-64  my-4 border-yellow-500 border rounded "></hr>

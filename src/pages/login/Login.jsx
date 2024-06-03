@@ -9,6 +9,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { TbFidgetSpinner } from "react-icons/tb";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const locationAnimation = {
   y: [15, -15, 15], // Vertical movement
@@ -24,6 +25,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   // const location = useLocation();
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
 
   const { signIn, googleLogin } = useContext(AuthContext);
 
@@ -34,10 +36,7 @@ const Login = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
     await signIn(email, password)
-      .then((result) => {
-        axios.post(`${import.meta.env.VITE_SERVER}/jwt`, {
-          email: result?.user?.email,
-        });
+      .then(() => {
         Swal.fire({
           icon: "success",
           title: "Login Successful",
@@ -59,22 +58,22 @@ const Login = () => {
         }
       });
   };
-  const handleGoogleLogin = () => {
+  const handleGoogleLogin = async () => {
     googleLogin()
       .then((result) => {
-        axios.post(
-          `${import.meta.env.VITE_SERVER}/jwt`,
-          {
-            email: result?.user?.email,
-          },
-          { withCredentials: true }
-        );
-        Swal.fire({
-          icon: "success",
-          iconColor: "#F4C210",
-          title: "Google Login Successful",
-          showConfirmButton: false,
-          timer: 1500,
+        const userInfo = {
+          name: result?.user?.email,
+          email: result?.user?.displayName,
+          role: "user",
+        };
+        axiosPublic.post("/users", userInfo).then(() => {
+          Swal.fire({
+            icon: "success",
+            iconColor: "#F4C210",
+            title: "Google Login Successful",
+            showConfirmButton: false,
+            timer: 1500,
+          });
         });
         navigate("/");
       })
