@@ -24,7 +24,7 @@ const MakePayment = () => {
       return data;
     },
   });
-  const { data: agreement = {} } = useQuery({
+  const { data: agreement = {}, isLoading } = useQuery({
     queryKey: ["agrement"],
     queryFn: async () => {
       const { data } = await axiosSecure(`/agreement`);
@@ -67,6 +67,13 @@ const MakePayment = () => {
     document.getElementById("my_modal_1").showModal();
     // Redirect to payment page or perform additional actions
   };
+
+  if (isLoading)
+    return (
+      <div className="min-h-[70vh] flex items-center justify-center">
+        <span className="loading text-yellow-500 loading-spinner loading-lg"></span>
+      </div>
+    );
 
   return (
     <div className="max-w-lg mx-auto  rounded">

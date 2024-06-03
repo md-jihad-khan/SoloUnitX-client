@@ -6,7 +6,7 @@ import Heading from "../../components/shared/Heading";
 const Announcements = () => {
   const axiosSecure = useAxiosSecure();
 
-  const { data: announcements = [] } = useQuery({
+  const { data: announcements = [], isLoading } = useQuery({
     queryKey: ["announcements"],
     queryFn: async () => {
       const result = await axiosSecure("/announcements");
@@ -14,7 +14,12 @@ const Announcements = () => {
       return result.data;
     },
   });
-
+  if (isLoading)
+    return (
+      <div className="min-h-[70vh] flex items-center justify-center">
+        <span className="loading text-yellow-500 loading-spinner loading-lg"></span>
+      </div>
+    );
   return (
     <>
       <Heading title={"All Announcement"} />

@@ -91,7 +91,7 @@ const CheckoutForm = ({ rent, closeModal, month }) => {
         email: user?.email,
         name: user?.displayName,
         month: month,
-        Amount: rent,
+        amount: rent,
         transactionId: paymentIntent.id,
         date: new Date().toISOString().slice(0, 10),
       };
