@@ -7,6 +7,8 @@ import Apartments from "../pages/Apartments/Apartments";
 import DashboardLayout from "../layouts/DashboardLayout";
 import MyProfile from "../pages/Dashboard/MyProfile";
 import Announcements from "../pages/Dashboard/Announcements";
+import MakePayment from "../pages/Dashboard/member/MakePayment";
+import PaymentHistory from "../pages/Dashboard/member/PaymentHistory";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +38,14 @@ export const router = createBrowserRouter([
       {
         path: "announcements",
         element: <Announcements />,
+      },
+      {
+        path: "makePayment",
+        element: <MakePayment />,
+      },
+      {
+        path: "paymentHistory",
+        element: <PaymentHistory />,
       },
     ],
   },

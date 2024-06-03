@@ -8,7 +8,7 @@ const MemberProfile = () => {
   const axiosSecure = useAxiosSecure();
   const [username, domain] = user.email.split("@");
 
-  const { data: agreement = {}, isLoading } = useQuery({
+  const { data: agreement = {} } = useQuery({
     queryKey: ["agrement"],
     queryFn: async () => {
       const { data } = await axiosSecure(`/agreement`);
@@ -39,13 +39,12 @@ const MemberProfile = () => {
 
       <div className="max-w-screen-xl mx-auto p-5 sm:p-10 ">
         <div className="rounded overflow-hidden flex flex-col max-w-xl mx-auto">
-          <a href="#">
-            <img
-              className="w-full"
-              src="https://images.pexels.com/photos/5120892/pexels-photo-5120892.jpeg?auto=compress&amp;cs=tinysrgb&amp;fit=crop&amp;h=625.0&amp;sharp=10&amp;w=1000"
-              alt="Sunset in the mountains"
-            />
-          </a>
+          <img
+            className="w-full rounded-lg"
+            src={agreement?.apartmentImage}
+            alt="Sunset in the mountains"
+          />
+
           <div className="relative bg-yellow-500 -mt-32 px-10 py-5  text-white rounded-lg m-10">
             <div className="">
               <p className="col-span-2">

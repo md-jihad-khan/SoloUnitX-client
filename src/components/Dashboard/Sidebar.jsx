@@ -56,7 +56,7 @@ const Sidebar = () => {
           <div>
             <div className="w-full  md:flex   rounded-lg items-center  mx-auto">
               <Link className="flex " to="/">
-                <img src="logo.svg" alt="logo" className="h-14" />
+                <img src="/logo.svg" alt="logo" className="h-14" />
                 <p className="font-poppins text-xl flex items-center font-bold">
                   <span className="text-yellow-500">Solo Unit</span> X
                 </p>
