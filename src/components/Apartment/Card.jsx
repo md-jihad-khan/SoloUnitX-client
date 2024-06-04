@@ -40,10 +40,13 @@ const Card = ({ apartment }) => {
     const agreement = {
       userName: user.displayName,
       userEmail: user.email,
-
       ...apartment,
       status: "pending",
-      agreementRequestDate: new Date().toISOString().slice(0, 10),
+      agreementRequestDate: new Date(
+        new Date().getTime() - new Date().getTimezoneOffset() * 60000
+      )
+        .toISOString()
+        .slice(0, 10),
     };
 
     Swal.fire({

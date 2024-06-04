@@ -62,7 +62,7 @@ const ManageMembers = () => {
 
   return (
     <>
-      <Heading title={"Payment History"} />
+      <Heading title={"Manage Member"} />
 
       {isLoading ? (
         <div className="min-h-[70vh] flex items-center justify-center">
@@ -71,8 +71,8 @@ const ManageMembers = () => {
       ) : (
         <>
           {members.length ? (
-            <div className="overflow-x-auto">
-              <table className="table table-sm">
+            <div className="">
+              <table className="table table-xs md:table-sm">
                 <thead>
                   <tr className="text-yellow-500">
                     <th>#</th>
