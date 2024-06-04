@@ -9,6 +9,8 @@ import MyProfile from "../pages/Dashboard/MyProfile";
 import Announcements from "../pages/Dashboard/Announcements";
 import MakePayment from "../pages/Dashboard/member/MakePayment";
 import PaymentHistory from "../pages/Dashboard/member/PaymentHistory";
+import ManageMembers from "../pages/Dashboard/admin/ManageMembers";
+import MakeAnnouncement from "../pages/Dashboard/admin/MakeAnnouncement";
 
 export const router = createBrowserRouter([
   {
@@ -46,6 +48,14 @@ export const router = createBrowserRouter([
       {
         path: "paymentHistory",
         element: <PaymentHistory />,
+      },
+      {
+        path: "manageMembers",
+        element: <ManageMembers />,
+      },
+      {
+        path: "makeAnnouncement",
+        element: <MakeAnnouncement />,
       },
     ],
   },
