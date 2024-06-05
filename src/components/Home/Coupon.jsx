@@ -3,6 +3,8 @@ import Heading from "../shared/Heading";
 import CouponCard from "./CouponCard";
 import { motion } from "framer-motion";
 import couponCard from "../../assets/cuponcard.png";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const springUpDownAnimation = {
   y: [15, -15, 15], // Vertical movement
@@ -23,12 +25,23 @@ const springUpDownAnimation2 = {
 };
 
 const Coupon = () => {
-  const coupons = [
-    { code: "SAVE10", discount: "10% off" },
-    { code: "FREESHIP", discount: "Free Shipping" },
-    { code: "SALE20", discount: "20% off on orders over $50" },
-    // Add more coupons as needed
-  ];
+  const axiosPublic = useAxiosPublic();
+
+  // const coupons = [
+  //   { code: "SAVE10", discount: "10% off" },
+  //   { code: "FREESHIP", discount: "Free Shipping" },
+  //   { code: "SALE20", discount: "20% off on orders over $50" },
+  //   // Add more coupons as needed
+  // ];
+
+  const { data: coupons = [] } = useQuery({
+    queryKey: ["coupons"],
+    queryFn: async () => {
+      const result = await axiosPublic("/coupons");
+      return result.data;
+    },
+  });
+
   return (
     <section className="flex flex-col-reverse md:flex-row justify-between items-center gap-8 mt-24">
       <div className="flex flex-col md:w-1/2 mx-auto gap-4  p-9">
