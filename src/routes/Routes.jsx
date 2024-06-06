@@ -13,6 +13,9 @@ import ManageMembers from "../pages/Dashboard/admin/ManageMembers";
 import MakeAnnouncement from "../pages/Dashboard/admin/MakeAnnouncement";
 import AgreementRequest from "../pages/Dashboard/admin/AgreementRequest";
 import ManageCoupons from "../pages/Dashboard/admin/ManageCoupons";
+import PrivateRoute from "./PrivateRoute";
+import MemberRoute from "./MemberRoute";
+import AdminRoute from "./AdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -37,35 +40,67 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <MyProfile />,
+        element: (
+          <PrivateRoute>
+            <MyProfile />,
+          </PrivateRoute>
+        ),
       },
       {
         path: "announcements",
-        element: <Announcements />,
+        element: (
+          <PrivateRoute>
+            <Announcements />
+          </PrivateRoute>
+        ),
       },
       {
         path: "makePayment",
-        element: <MakePayment />,
+        element: (
+          <MemberRoute>
+            <MakePayment />
+          </MemberRoute>
+        ),
       },
       {
         path: "paymentHistory",
-        element: <PaymentHistory />,
+        element: (
+          <MemberRoute>
+            <PaymentHistory />
+          </MemberRoute>
+        ),
       },
       {
         path: "manageMembers",
-        element: <ManageMembers />,
+        element: (
+          <AdminRoute>
+            <ManageMembers />
+          </AdminRoute>
+        ),
       },
       {
         path: "makeAnnouncement",
-        element: <MakeAnnouncement />,
+        element: (
+          <AdminRoute>
+            <MakeAnnouncement />
+          </AdminRoute>
+        ),
       },
       {
         path: "agreementRequest",
-        element: <AgreementRequest />,
+        element: (
+          <AdminRoute>
+            <AgreementRequest />
+          </AdminRoute>
+        ),
       },
       {
         path: "manageCoupons",
-        element: <ManageCoupons />,
+        element: (
+          <AdminRoute>
+            <ManageCoupons />
+          </AdminRoute>
+        ),
       },
     ],
   },

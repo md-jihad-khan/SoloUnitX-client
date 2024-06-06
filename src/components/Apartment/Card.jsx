@@ -36,6 +36,16 @@ const Card = ({ apartment }) => {
   });
 
   const handleAgreement = async (apartment) => {
+    if (!user) {
+      Swal.fire({
+        title: "Please Login to Apply ?",
+        icon: "error",
+        timer: 1500,
+        showConfirmButton: false,
+        iconColor: "#F4C210",
+      });
+    }
+
     delete apartment._id;
     const agreement = {
       userName: user.displayName,
