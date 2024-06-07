@@ -69,7 +69,7 @@ const PaymentHistory = () => {
                     <tr key={payment._id}>
                       <th>{index + 1}</th>
                       <td className="line-clamp-1 h-7 lg:h-full">
-                        $ {payment.Amount}
+                        $ {payment.amount}
                       </td>
                       <td>{payment.month}</td>
                       <td>{payment.date}</td>
