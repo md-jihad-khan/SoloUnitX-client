@@ -16,11 +16,13 @@ import ManageCoupons from "../pages/Dashboard/admin/ManageCoupons";
 import PrivateRoute from "./PrivateRoute";
 import MemberRoute from "./MemberRoute";
 import AdminRoute from "./AdminRoute";
+import ErrorPage from "../pages/ErrorPage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Main />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",

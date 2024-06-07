@@ -9,7 +9,7 @@ const MemberProfile = () => {
   const [username, domain] = user.email.split("@");
 
   const { data: agreement = {} } = useQuery({
-    queryKey: ["agrement"],
+    queryKey: ["agreement"],
     queryFn: async () => {
       const { data } = await axiosSecure(`/agreement`);
       return data;

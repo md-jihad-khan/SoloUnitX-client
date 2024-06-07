@@ -76,9 +76,42 @@ const ManageCoupons = () => {
       code,
       discount,
       description,
+      availability: true,
     };
     document.getElementById("my_modal_2").close();
     await mutateAsync(couponData);
+    refetch();
+  };
+
+  const { mutateAsync: updateCouponAvailability } = useMutation({
+    mutationFn: async ({ id, availability }) => {
+      const { data } = await axiosSecure.put(`/coupon/${id}/availability`, {
+        availability,
+      });
+      return data;
+    },
+    onSuccess: () => {
+      Swal.fire({
+        title: "Coupon Availability Updated Successfully !",
+        icon: "success",
+        iconColor: "#F4C210",
+        confirmButtonColor: "#F4C210",
+      });
+    },
+    onError: (error) => {
+      if (error.response) {
+        Swal.fire({
+          title: "Some Error Happened !",
+          icon: "error",
+          iconColor: "#F4C210",
+          confirmButtonColor: "#F4C210",
+        });
+      }
+    },
+  });
+
+  const handleAvailabilityChange = async (id, newAvailability) => {
+    await updateCouponAvailability({ id, availability: newAvailability });
     refetch();
   };
 
@@ -93,9 +126,8 @@ const ManageCoupons = () => {
               <th>Coupon code</th>
               <th>Discount Percentage</th>
               <th>Description</th>
-              <th>Remove coupon</th>
-
-              {/* Add more table headers as needed */}
+              <th>Availability</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -105,12 +137,23 @@ const ManageCoupons = () => {
                 <td>{coupon.code}</td>
                 <td>{coupon.discount}%</td>
                 <td>{coupon.description}</td>
+                <td>{coupon.availability ? "Available" : "Not Available"}</td>
                 <td>
                   <button
                     onClick={() => deleteCoupon(coupon._id)}
-                    className="btn  bg-red-50 text-red-600"
+                    className="btn bg-red-50 text-red-600 mr-2"
                   >
                     Remove
+                  </button>
+                  <button
+                    onClick={() =>
+                      handleAvailabilityChange(coupon._id, !coupon.availability)
+                    }
+                    className={`btn ${
+                      coupon.availability ? "bg-green-500" : "bg-gray-500"
+                    } text-white`}
+                  >
+                    {coupon.availability ? "Deactivate" : "Activate"}
                   </button>
                 </td>
               </tr>

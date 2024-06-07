@@ -40,9 +40,13 @@ const MakePayment = () => {
       (c) => c.code.toUpperCase() === coupon.toUpperCase()
     );
     if (foundCoupon) {
-      const discountedAmount = agreement.rent * (foundCoupon.discount / 100);
-      setRent(agreement.rent - discountedAmount);
-      setSuccess("Coupon Applied Successfully");
+      if (!foundCoupon.availability) {
+        setError("Coupon is not available");
+      } else {
+        const discountedAmount = agreement.rent * (foundCoupon.discount / 100);
+        setRent(agreement.rent - discountedAmount);
+        setSuccess("Coupon Applied Successfully");
+      }
     } else {
       setError("Invalid Coupon");
     }

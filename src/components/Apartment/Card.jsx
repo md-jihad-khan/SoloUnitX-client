@@ -1,14 +1,15 @@
 import { useMutation } from "@tanstack/react-query";
 import PropTypes from "prop-types";
-
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { useNavigate } from "react-router-dom";
 
 const Card = ({ apartment }) => {
   const axiosSecure = useAxiosSecure();
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const { mutateAsync } = useMutation({
     mutationFn: async (agreementData) => {
@@ -37,6 +38,7 @@ const Card = ({ apartment }) => {
 
   const handleAgreement = async (apartment) => {
     if (!user) {
+      navigate("/login");
       Swal.fire({
         title: "Please Login to Apply ?",
         icon: "error",
